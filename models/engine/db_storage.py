@@ -86,9 +86,11 @@ class DBStorage:
         
         all_objects = self.all(cls)
         
-        for element in all_objects:
+        uuid = "{}.{}".format(cls.__name__, id)
+        
+        for key, element in all_objects.items():
             
-            if element.id == id:
+            if key == uuid:
                 
                 return element
             
