@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""script that starts a Flask web application"""
+"""script that starts a Flask web api"""
 from flask import Flask, Blueprint
 from models import storage
 from api.v1.views import app_views
