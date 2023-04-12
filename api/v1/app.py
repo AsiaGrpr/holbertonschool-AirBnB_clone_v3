@@ -17,6 +17,13 @@ def teardown_db(error):
     storage.close()
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return {
+        "error": "Not found"
+    }
+
+
 if __name__ == "__main__":
     """main function"""
 
