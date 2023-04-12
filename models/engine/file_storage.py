@@ -71,12 +71,15 @@ class FileStorage:
 
 
     def count(self, cls=None):
-        
+
+        if type(cls) is str:
+            cls = classes[cls]
+
         all_objects = self.all(cls)
 
         return len(all_objects)
-    
-        
+
+
     def get(self, cls, id):
         
         all_objects = self.all(cls)

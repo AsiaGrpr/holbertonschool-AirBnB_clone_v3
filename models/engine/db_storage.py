@@ -76,12 +76,14 @@ class DBStorage:
         self.__session.remove()
         
     def count(self, cls=None):
-        
-        all_objects = self.all(cls)
 
+        if type(cls) is str:
+            cls = classes[cls]
+
+        all_objects = self.all(cls)
         return len(all_objects)
-    
-        
+
+
     def get(self, cls, id):
         
         all_objects = self.all(cls)
@@ -89,7 +91,6 @@ class DBStorage:
         uuid = "{}.{}".format(cls.__name__, id)
         
         for key, element in all_objects.items():
-            
             if key == uuid:
                 
                 return element
