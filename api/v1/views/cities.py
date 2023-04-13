@@ -9,7 +9,7 @@ from models.state import State
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
-def get_all_cities():
+def get_cities(state_id):
     """list all cities"""
 
     list_cities = []
@@ -51,7 +51,7 @@ def delete_city(city_id):
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
                  strict_slashes=False)
-def create_city():
+def create_city(state_id):
     """create city"""
 
     state = storage.get(State, state_id)
