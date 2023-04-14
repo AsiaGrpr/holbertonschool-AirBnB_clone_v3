@@ -8,7 +8,8 @@ from models.city import City
 from models.user import User
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places',
+                 methods=['GET'], strict_slashes=False)
 def get_place_city(city_id):
     """documentation"""
     places_list = []
@@ -20,7 +21,8 @@ def get_place_city(city_id):
     return jsonify(places_list)
 
 
-@app_views.route('/places/<place_id>', methods=['GET', 'DELETE'], strict_slashes=False)
+@app_views.route('/places/<place_id>',
+                 methods=['GET', 'DELETE'], strict_slashes=False)
 def get_place(place_id):
     """documentation"""
     place = storage.get(Place, place_id)
@@ -35,7 +37,8 @@ def get_place(place_id):
         return jsonify({}), 200
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places',
+                 methods=['POST'], strict_slashes=False)
 def post_place(city_id):
     """documentation"""
     create_data = request.get_json()
@@ -48,7 +51,7 @@ def post_place(city_id):
         abort(400, description="Missing user_id")
     elif 'name' not in create_data:
         abort(400, description="Missing name")
-        
+
     user = storage.get(User, create_data['user_id'])
     if not user:
         abort(404)
@@ -62,18 +65,19 @@ def post_place(city_id):
 @app_views.route('/places/<place_id>', strict_slashes=False, methods=['PUT'])
 def update_place(place_id):
     """documentation"""
-    
+
     update_place = storage.get(Place, place_id)
-    
+
     request_json = request.get_json()
-    
+
     if update_place is None:
         abort(404)
     elif request_json is None:
         abort(400, description="Not a JSON")
     else:
         for key, val in request_json.items():
-            if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
+            if key not in ['id', 'user_id', 'city_id',
+                           'created_at', 'updated_at']:
                 setattr(update_place, key, val)
         storage.save()
         return jsonify(update_place.to_dict()), 200
