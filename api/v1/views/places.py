@@ -109,8 +109,7 @@ def cities_places(city_id):
     if "name" not in new:
         return abort(400, {"Missing name"})
     
-    new_obj = Place(name=new_state['name'], city_id=city.id)
-    new_obj.update(new)
+    new_obj = Place(name=new_state['name'], city_id=city.id, user_id=user.id)
     storage.new(new_obj)
     storage.save()
     return make_response(new_obj.to_dict(), 201)
