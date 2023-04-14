@@ -48,7 +48,9 @@ def post_place(city_id):
         abort(400, description="Missing user_id")
     elif 'name' not in create_data:
         abort(400, description="Missing name")
-    if storage.get(User, create_data['user_id']) is None:
+        
+    user = storage.get(User, create_data['user_id'])
+    if not user:
         abort(404)
     else:
         new_place = Place(**create_data)
